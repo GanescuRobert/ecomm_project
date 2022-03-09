@@ -31,3 +31,23 @@
 ```text
 python manage.py runserver
 ```
+
+## Create app
+
+- python manage.py startapp store
+- Append 'store' in ecomm_shop/settings.py
+  
+  ```text
+  INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'store'   
+  ]
+  ```
+
+- In **store** create 'urls.py'
+- Append store/urls.py in ecomm_shop/urls.py
