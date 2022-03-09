@@ -6,8 +6,7 @@
   - conda create --prefix ./env/"name of environment (without spaces)" python=3.8
   - conda config --append envs_dirs "absolute path"/env/
   - conda activate "name of environment (without spaces)"
-  - pip install django
-  - pip install mysqlclient
+  - pip install -r requirements.txt
   - django-admin startproject "name of project (without spaces)"
 - XAMPP
 
@@ -36,7 +35,7 @@ python manage.py runserver
 
 - python manage.py startapp store
 - Append 'store' in ecomm_shop/settings.py
-  
+
   ```text
   INSTALLED_APPS = [
     'django.contrib.admin',
@@ -45,9 +44,22 @@ python manage.py runserver
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'store'   
+    'store'
   ]
   ```
 
 - In **store** create 'urls.py'
 - Append store/urls.py in ecomm_shop/urls.py
+
+## Make migrations
+
+After creating the classes, the migrations must be made:
+
+- `python manage.py makemigrations`
+- `python manage.py migrate`
+
+## Create super user
+
+The following command must be run to create an admin:
+
+- `python manage.py createsuperuser`
