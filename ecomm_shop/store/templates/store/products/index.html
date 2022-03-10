@@ -3,7 +3,9 @@
   <div class="container">
     <a class="text-white" href="{% url 'home' %}">Home /</a>
     <a class="text-white" href="{% url 'collections' %}">Collections /</a>
-    <a class="text-white" href="{% url 'collectionsview' category.slug %}"
+    <a
+      class="text-white"
+      href="{% url 'collectionsview' category.slug %}"
       >{{category.name}}
     </a>
   </div>
@@ -17,7 +19,7 @@
         {% for item in products %}
         <div class="col-md-3">
           <div class="card">
-            <a href="#">
+            <a href="{% url 'productview' item.category.slug item.slug%}">
               <div class="card-body">
                 <div class="category-image">
                   <img
