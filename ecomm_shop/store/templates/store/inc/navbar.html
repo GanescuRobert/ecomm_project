@@ -22,15 +22,27 @@
         <li class="nav-item">
           <a class="nav-link" href="{% url 'collections' %}">Collections</a>
         </li>
-        <li class="nav-item">
-          <a
-            class="nav-link disabled"
-            href="#"
-            tabindex="-1"
-            aria-disabled="true"
-            >Disabled</a
-          >
+        {% if request.user.is_authenticated %}
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" role="button" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+            {{request.user}}
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li> <a class="dropdown-item" href="{% url 'logoutpage' %}">Logout</a></li>
+            <li> <a class="dropdown-item" href="{% url 'logoutpage' %}">Logout</a></li>
+            <li> <a class="dropdown-item" href="{% url 'logoutpage' %}">Logout</a></li>
+          </ul>
         </li>
+      
+        {% else %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'loginpage' %}">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'registerpage' %}">Register</a>
+        </li>
+        {% endif %}
+        
       </ul>
       <form class="d-flex">
         <input
