@@ -1,5 +1,5 @@
 from django.http import JsonResponse
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 
 from store.models import Product, Cart
 
@@ -25,3 +25,7 @@ def addtocart(request):
             return JsonResponse({'status': "Login to continue."})
     return redirect("/")
 
+def viewcart(request):
+    cart = Cart.objects.filter(user=request.user)
+    context = {'cart':cart}
+    return render(request, 'store/cart.html', context)
