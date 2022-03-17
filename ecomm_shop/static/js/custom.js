@@ -19,4 +19,5 @@ $(function () {
             $(this).closest('.product_data').find('.qty-input').val(value);
         }
     });
+  
 })
