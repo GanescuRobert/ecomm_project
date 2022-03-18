@@ -34,9 +34,6 @@ $(function () {
                 'product_qty':product_qty,
                 csrfmiddlewaretoken :token
             },
-            success:function(response){
-                // alertify.success(response.status);
-            }
         });
     });
     $('.delete-cart-item').on("click",function (e) { 
