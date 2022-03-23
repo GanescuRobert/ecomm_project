@@ -1,5 +1,6 @@
 from django.http import JsonResponse
 from django.shortcuts import redirect, render
+from django.contrib.auth.decorators import login_required
 
 from store.models import Product, Cart
 
@@ -9,7 +10,7 @@ def addtocart(request):
             prod_id = int(request.POST.get('product_id'))
             product_check = Product.objects.get(id=prod_id)
             if product_check:
-                if Cart.objects.filter(user=request.user.id, product_id=prod_id):
+                if Cart.objects.filter(user=request.user, product_id=prod_id):
                     return JsonResponse({'status': "Product already in cart."})
                 else:
                     prod_qty = int(request.POST.get('product_qty'))
@@ -25,6 +26,7 @@ def addtocart(request):
             return JsonResponse({'status': "Login to continue."})
     return redirect("/")
 
+@login_required(login_url='loginpage')
 def viewcart(request):
     cart = Cart.objects.filter(user=request.user)
     context = {'cart':cart}
@@ -41,6 +43,7 @@ def updatecart(request):
             return JsonResponse({'status': "Updated Successfully"})
     return redirect('/')
 
+@login_required(login_url='loginpage')
 def deletecartitem(request):
     if( request.method=="POST"):
         prod_id = int(request.POST.get('product_id'))
