@@ -1,4 +1,4 @@
-# ecomm_project
+# [Django ecommerce project](https://www.youtube.com/playlist?list=PL_99hMDlL4d2zsGU5nOgADmRc6A8msXyh)
 
 ## Setup environment
 

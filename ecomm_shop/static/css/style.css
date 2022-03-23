@@ -1,21 +1,36 @@
-*{
-    font-family: 'Roboto', sans-serif;
+* {
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
 }
-a{
-    text-decoration: none;
+
+a {
+  text-decoration: none;
 }
+
+.checkoutform label {
+  font-size: 14px !important;
+  font-weight: 600;
+}
+.checkoutform input {
+  font-size: 14px !important;
+}
+
+small {
+  font-size: 12px;
+}
+
 .product-viewtag {
-    background-color: red;
-    color: #fff;
-    font-size:11px;
-    line-height: 1;
-    position: absolute;
-    text-align: center;
-    text-transform: uppercase;
-    top:22px;
-    margin-left: 17.5rem;
-    margin-left: 17.5rem;
-    padding:7px 10px;
-    font-weight: 600;
-    min-width:45px;
+  background-color: red;
+  color: #fff;
+  font-size: 11px;
+  line-height: 1;
+  position: absolute;
+  text-align: center;
+  text-transform: uppercase;
+  top: 22px;
+  margin-left: 17.5rem;
+  margin-left: 17.5rem;
+  padding: 7px 10px;
+  font-weight: 600;
+  min-width: 45px;
 }
