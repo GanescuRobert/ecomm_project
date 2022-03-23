@@ -4,7 +4,6 @@ from django.contrib.auth.models import User
 
 import datetime
 import os
-from django.forms import CharField
 
 from phonenumber_field.modelfields import PhoneNumberField
 
@@ -78,9 +77,9 @@ class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     fname = models.CharField(max_length=150, null=False)
     lname = models.CharField(max_length=150, null=False)
-    email = models.EmailField(max_length=70, blank=True,unique=True)
+    email = models.EmailField(max_length=70, blank=True,unique=False)
     # Address details
-    phone = PhoneNumberField(null=False, blank=False, unique=True)
+    phone = PhoneNumberField(null=False, blank=False, unique=False)
     city = models.CharField(max_length=150, null=False)
     state = models.CharField(max_length=150, null=False)
     country = models.CharField(max_length=150, null=False)
@@ -115,3 +114,14 @@ class OrderItem(models.Model):
     
     def __str__(self):
         return '{} - {}'.format(self.order.id, self.order.tracking_no)
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    phone = PhoneNumberField(null=False, blank=False, unique=True)
+    city = models.CharField(max_length=150, null=False)
+    state = models.CharField(max_length=150, null=False)
+    country = models.CharField(max_length=150, null=False)
+    zipcode = models.CharField(max_length=150, null=False)
+    details =  models.TextField(null=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    def __str__(self):
+        return self.user.username

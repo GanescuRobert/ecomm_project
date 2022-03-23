@@ -2,8 +2,9 @@
 import random
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
-
-from store.models import Order, OrderItem, Product, Cart
+from django.contrib.auth.models import User
+from store.models import  Order, OrderItem, Product, Cart, Profile
+from django.contrib import messages
 
 @login_required(login_url='loginpage')
 def viewcheckout(request):
@@ -17,7 +18,8 @@ def viewcheckout(request):
     for item in cartitems:
         total_price = total_price + item.product.selling_price * item.product_qty
 
-    context = {'cartitems': cartitems, 'total_price': total_price}
+    userprofile = Profile.objects.filter(user=request.user).first()
+    context = {'cartitems': cartitems, 'total_price': total_price, "userprofile":userprofile}
 
     return render(request, "store/checkout.html", context)
 
@@ -35,6 +37,23 @@ def __get_cart_total_price(cart):
 @login_required(login_url='loginpage')
 def placeorder(request):
     if request.method == 'POST':
+        currentuser = User.objects.filter(id=request.user.id).first()
+        
+        if not currentuser.first_name:
+            currentuser.first_name = request.POST.get('fname')
+            currentuser.last_name = request.POST.get('lname')
+            currentuser.save()
+        if not Profile.objects.filter(user=request.user):
+            userprofile = Profile()
+            userprofile.user = request.user
+            userprofile.phone = request.POST.get('phone')
+            userprofile.city = request.POST.get('city')
+            userprofile.state = request.POST.get('state')
+            userprofile.country = request.POST.get('country')
+            userprofile.zipcode = request.POST.get('zipcode')
+            userprofile.details = request.POST.get('other')
+            userprofile.save()    
+                    
         neworder = Order()
         
         neworder.user = request.user 
@@ -46,7 +65,7 @@ def placeorder(request):
         neworder.state = request.POST.get('state')
         neworder.country = request.POST.get('country')
         neworder.zipcode = request.POST.get('zipcode')
-        neworder.other = request.POST.get('other')    
+        neworder.details = request.POST.get('other')    
         neworder.payment_mode = request.POST.get('payment_mode')
     
         cart = Cart.objects.filter(user=request.user)
@@ -65,7 +84,7 @@ def placeorder(request):
             )
        
         orderproduct = Product.objects.filter(id=item.product_id).first()
-        orderproduct.quantity -= item.product.qty
+        orderproduct.quantity -= item.product.quantity
         orderproduct.save()
         
 

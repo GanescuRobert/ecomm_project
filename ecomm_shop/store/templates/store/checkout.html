@@ -19,23 +19,23 @@
           <hr>
           <div class="row p-2 ">
             <div class="col-md-6">
-            <label for="firstname">Frist name</label>
-            <input type="text" class="form-control" required placeholder="Enter first name" name="firstname">
+            <label for="fname">Frist name</label>
+            <input type="text" class="form-control" required value="{{userprofile.user.first_name}}" placeholder="Enter first name" name="fname">
             </div>
             <div class="col-md-6">
-              <label for="lastname">Last name</label>
-              <input type="text" class="form-control" required placeholder="Enter last name" name="lastname">
+              <label for="lname">Last name</label>
+              <input type="text" class="form-control" required value="{{userprofile.user.last_name}}" placeholder="Enter last name" name="lname">
               </div>
           </div>
           <div class="row p-2 ">
             <div class="col-md-6">
             <label for="email">Email</label>
-            <input type="email" class="form-control" required placeholder="Enter email" name="email">
+            <input type="email" class="form-control" required value="{{request.user.email}}" placeholder="Enter email" name="email">
             </div>
             <div class="col-md-6">
               <label for="phone">Phone</label>
-              <input type="tel" pattern="\d{3}-\d{3}-\d{4}" class="form-control" required placeholder="Enter phone" name="phone">
-              <small> Format: 123-456-7890</small>  
+              <input type="tel" pattern="\d{10}" class="form-control" required value="{{userprofile.phone}}" placeholder="Enter phone" name="phone">
+              <small> Format: 1234567890</small>  
             </div>
           </div>
           <h6 class="fw-bold mt-2"> Address details</h6>
@@ -43,28 +43,28 @@
           <div class="row p-2">
             <div class="col-md-6">
             <label for="city">City</label>
-            <input type="text" class="form-control" required placeholder="Enter City" name="city">
+            <input type="text" class="form-control" required value="{{userprofile.city}}" placeholder="Enter City" name="city">
             </div>
             <div class="col-md-6">
               <label for="state">State</label>
-              <input type="text" class="form-control" required placeholder="Enter State" name="state">
+              <input type="text" class="form-control" required value="{{userprofile.state}}" placeholder="Enter State" name="state">
             </div>
           </div>
           <div class="row p-2">
             <div class="col-md-6">
             <label for="country">Country</label>
-            <input type="text" class="form-control" required placeholder="Enter Country" name="country">
+            <input type="text" class="form-control" required value="{{userprofile.country}}" placeholder="Enter Country" name="country">
             </div>
             <div class="col-md-6">
               <label for="Zipcode">Zipcode</label>
-              <input type="text" class="form-control" required placeholder="Enter Zipcode" name="zipcode">
+              <input type="text" class="form-control" required value="{{userprofile.zipcode}}" placeholder="Enter Zipcode" name="zipcode">
             </div>
           </div>
           <h6 class="fw-bold mt-2"> Other details</h6>
           <hr>
             <div class="row p-2">
               <label for="other">Details</label>
-              <textarea rows="4" class="form-control" required name="other"></textarea>
+              <textarea rows="4" class="form-control" name="other"> {{userprofile.details}}</textarea>
             </div>
         </div>
       </div>
@@ -88,7 +88,7 @@
               
                         <tr>
                             <td> <img src="{{item.product.product_image.url}}" height="50px" width="50px" class="me-2">{{item.product.name}}</td>
-                            <td>{{item.product_qty}}</td>
+                          <td>{{item.product_qty}}</td>
                             <td>{{item.product.selling_price | stringformat:'d'}}</td>
                         </tr>
               
