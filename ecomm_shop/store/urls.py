@@ -23,7 +23,7 @@ urlpatterns = [
     path('delete-wishlist-item',wishlistview.deletewishlistitem,name="deletewishlistitem"),
     
     path('checkout', checkoutview.viewcheckout, name="checkout"),
-    path('placeorder', checkoutview.placeorder, name="placeorder"),
+    path('place-order', checkoutview.placeorder, name="placeorder"),
     
     path('proceed-to-pay', checkoutview.razorpaycheck),
     path('my-orders', checkoutview.orders),

@@ -100,6 +100,7 @@
                 <div class="mt-3">
                   <button type="submit" class="btn btn-success w-100"> Place order </button>
                   <button type="button" class="btn btn-primary w-100 mt-2 payWithRazorpay"> Pay with Razorpay</button>
+                  <div class="mt-4" id="paypal-button-container"></div>
                 </div>
                   {% else %}
                 <h4> Your cart is empty</h4>
@@ -115,7 +116,102 @@
 {% endblock content %}
 
 {% block scripts %}
+
+
+
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://www.paypal.com/sdk/js?client-id=AXIshpUPM0bIsHMKjPekup8FH83sq0c51m_9SZqzC4kxxXMdVfPntx_jswIS2u1CCfpUP6mKsmQH_7uS&currency=USD"></script>
 
+<script>
+  paypal.Buttons({
+
+    onClick : function(data, actions){
+      let fname = $("[name='fname']").val();
+      let lname = $("[name='lname']").val();
+      let email = $("[name='email']").val();
+      let phone = $("[name='phone']").val();
+      let other = $("[name='other']").val();
+      let city = $("[name='city']").val();
+      let state = $("[name='state']").val();
+      let country = $("[name='country']").val();
+      let zipcode = $("[name='zipcode']").val();
+      let token = $("[name='csrfmiddlewaretoken']").val();
+
+      if (fname == "" || lname == "" || email == "" || phone == "" || other == "" || city == "" || state == "" || country == "" || zipcode == "") {
+          swal("Alert!", "All fields are mandatory!", "error");
+          return false;
+      } else {
+          return true;
+      }
+
+    },
+
+
+    // Sets up the transaction when a payment button is clicked
+    createOrder: function(data, actions) {
+      return actions.order.create({
+        purchase_units: [{
+          amount: {
+            value: "{{ total_price | stringformat:'d'}}" // Can reference variables or functions. Example: `value: document.l
+           
+          }
+        }]
+      });
+    },
+
+    // Finalize the transaction after payer approval
+    onApprove: function(data, actions) {
+      return actions.order.capture().then(function(orderData) {
+        // Successful capture! For dev/demo purposes:
+            //console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+           //alert(orderData.id);
+            //var transaction = orderData.purchase_units[0].payments.captures[0];
+            //alert('Transaction '+ transaction.status + ': ' + transaction.id + '\n\nSee console for all available details');
+            let fname = $("[name='fname']").val();
+            let lname = $("[name='lname']").val();
+            let email = $("[name='email']").val();
+            let phone = $("[name='phone']").val();
+            let other = $("[name='other']").val();
+            let city = $("[name='city']").val();
+            let state = $("[name='state']").val();
+            let country = $("[name='country']").val();
+            let zipcode = $("[name='zipcode']").val();
+            let token = $("[name='csrfmiddlewaretoken']").val();
+            
+            const data = {
+              "fname": fname,
+              "lname": lname,
+              "email": email,
+              "phone": phone,
+              "other": other,
+              "city": city,
+              "state": state,
+              "country": country,
+              "zipcode": zipcode,
+              "payment_mode": "Paid by PayPal",
+              "payment_id": orderData.id,
+              csrfmiddlewaretoken: token,
+          }
+          $.ajax({
+              type: "POST",
+              url: "/place-order",
+              data: data,
+              success: function (response_place_order) {
+                  swal("Congratulations!", response_place_order.status, "success")
+                  .then((value)=>{
+                      window.location.href = "/my-orders"
+                  })
+              }
+          });
+        // When ready to go live, remove the alert and show a success message within this page. For example:
+        // var element = document.getElementById('paypal-button-container');
+        // element.innerHTML = '';
+        // element.innerHTML = '<h3>Thank you for your payment!</h3>';
+        // Or go to another URL:  actions.redirect('thank_you.html');
+      });
+    }
+  }).render('#paypal-button-container');
+
+</script>
 {% endblock scripts %}

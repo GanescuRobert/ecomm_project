@@ -101,7 +101,7 @@ def placeorder(request):
         Cart.objects.filter(user=request.user).delete()
 
         pay_mode = request.POST.get('payment_mode')
-        if pay_mode == "Paid by Razorpay":
+        if pay_mode == "Paid by Razorpay" or pay_mode == "Paid by PayPal":
             return JsonResponse({"status": "Your order has been placed successfully"})
         else:
             messages.success(
