@@ -73,19 +73,23 @@ class Wishlist(models.Model):
 
     
 class Order(models.Model):
-    # Contact details
+   
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     fname = models.CharField(max_length=150, null=False)
     lname = models.CharField(max_length=150, null=False)
+     
+    # Contact details
     email = models.EmailField(max_length=70, blank=True,unique=False)
-    # Address details
     phone = PhoneNumberField(null=False, blank=False, unique=False)
+    # Address details
+    
     city = models.CharField(max_length=150, null=False)
     state = models.CharField(max_length=150, null=False)
     country = models.CharField(max_length=150, null=False)
     zipcode = models.CharField(max_length=150, null=False)
     # Other details
     details =  models.TextField(null=False)
+    
     # Order summary
     total_price = models.FloatField(null=False)
     payment_mode = models.CharField(max_length=150,null=False)
@@ -105,6 +109,9 @@ class Order(models.Model):
     
     def __str__(self):
         return '{} - {}'.format(self.id, self.tracking_no)
+    
+    def get_full_address(self):
+        return ', '.join([self.city, self.state, self.country, self.zipcode, self.details]) 
     
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE)

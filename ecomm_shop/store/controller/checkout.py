@@ -10,7 +10,7 @@ from django.contrib import messages
 
 
 @login_required(login_url='loginpage')
-def viewcheckout(request):
+def index(request):
     rawcart = Cart.objects.filter(user=request.user)
     for item in rawcart:
         if item.product_qty > item.product.quantity:

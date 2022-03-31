@@ -28,6 +28,7 @@
             {{request.user}}
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li> <a class="dropdown-item" href="{% url 'myorders' %}">My orders</a></li>
             <li> <a class="dropdown-item" href="{% url 'cart' %}">Cart</a></li>
             <li> <a class="dropdown-item" href="{% url 'wishlist' %}">Wishlist</a></li>
             <li> <a class="dropdown-item" href="{% url 'logoutpage' %}">Logout</a></li>
@@ -44,14 +45,17 @@
         {% endif %}
         
       </ul>
-      <form class="d-flex">
+      <form action="{% url 'searchproduct' %}" method="POST" class="d-flex">
+        {% csrf_token %}
         <input
           class="form-control me-2"
           type="search"
           placeholder="Search"
           aria-label="Search"
+          name="searchproduct"
+          id="searchproducts"
+          required
         />
-        <button class="btn btn-outline-success" type="submit">Search</button>
       </form>
     </div>
   </div>

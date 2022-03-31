@@ -12,7 +12,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
-
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+  
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
   </head>
   <body>
@@ -28,6 +29,28 @@
       integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
       crossorigin="anonymous"
     ></script>
+
+    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+    <script>
+      $( function() {
+        var availableTags = [];
+        $.ajax({
+          method: "GET",
+          url: "/product-list",
+          success: function (response) {
+            startAutocomplete(response);
+          }
+        });
+        
+        function startAutocomplete(availableTags){
+          $( "#searchproducts" ).autocomplete({
+            source: availableTags
+          });
+        }
+
+      
+      } );
+    </script>
 
     <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
 

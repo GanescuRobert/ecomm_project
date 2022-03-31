@@ -27,7 +27,7 @@ def addtocart(request):
     return redirect("/")
 
 @login_required(login_url='loginpage')
-def viewcart(request):
+def index(request):
     cart = Cart.objects.filter(user=request.user)
     context = {'cart':cart}
     return render(request, 'store/cart.html', context)

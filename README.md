@@ -63,3 +63,9 @@ After creating the classes, the migrations must be made:
 The following command must be run to create an admin:
 
 - `python manage.py createsuperuser`
+
+## Packages
+
+- [SweetAlert](https://sweetalert.js.org/)
+- [AlertifyJS](https://alertifyjs.com/)
+- [jQuery UI](https://jqueryui.com/)
